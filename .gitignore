@@ -1,0 +1,22 @@
+# SymbiFlow files and directories
+**/build
+**/*.bit
+
+# edaplayground.com files and directories
+**/.aldec
+**/.temp
+**/ACCELLERA_OVL_VHDL_LIB
+**/work
+.bash*
+.flexlmrc
+*.asdb
+*.vcd
+*.cfg
+
+# some other miscellaneous
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-*
+.Trashes
+Thumbs.db

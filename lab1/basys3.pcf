@@ -1,0 +1,4 @@
+set_io y U16
+set_io a W16
+set_io b V16
+set_io c V17

@@ -1,0 +1,20 @@
+{
+    "name": "BASYS3 Symbiflow tools",
+    "dockerFile": "Dockerfile",
+
+    // Use 'settings' to set *default* container specific settings.json values on container create. 
+    "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+    },
+
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+
+    "workspaceFolder": "/workspace",
+    
+	"extensions": [
+		"ms-azuretools.vscode-docker",
+		"eirikpre.systemverilog",
+		"ms-vscode-remote.remote-containers"
+	],
+
+}

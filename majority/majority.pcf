@@ -1,0 +1,5 @@
+# out[0:15] correspond with LD0-LD15 on the basys3
+set_io y U16
+set_io a W16
+set_io b V16
+set_io c V17

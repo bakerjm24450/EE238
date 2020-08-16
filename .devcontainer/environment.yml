@@ -1,0 +1,17 @@
+name: base
+channels:
+  - symbiflow
+dependencies:
+  - python
+  - yosys
+  - yosys-plugins
+  - vtr-no-gui
+  - make
+  - lxml
+  - simplejson
+  - intervaltree
+  - git
+  - pip
+  - pip:
+    - python-constraint
+    - git+https://github.com/symbiflow/fasm
