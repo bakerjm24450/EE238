@@ -4,7 +4,7 @@ module minority(input logic a,
                 input logic b,
                 input logic c,
                 output logic y);
-  
-  assign y = (~a & ~b) | (~a & ~c) | (~b & ~c);
+
+  // FIXME -- Add your implementation here
 
 endmodule
