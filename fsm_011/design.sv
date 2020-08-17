@@ -2,48 +2,45 @@
 module fsm_011(input logic clk,
                          input logic reset,
                          input logic a,
-                         output logic [3:0] state,
+                         output logic [1:0] state,
                          output logic y);
 
    //typedef enum logic [1:0] {Sinit, S0, S01, S011} statetype;
    //statetype state, nextState;
 
-   localparam Sinit = 0,
-            S0 = 1,
-            S01 = 2,
-            S011 = 3;
-   logic [3:0] nextState = 4'b0001;
+   localparam Sinit = 2'b00,
+            S0 = 2'b01,
+            S01 = 2'b10,
+            S011 = 2'b11;
+   logic [1:0] nextState;
 
-   initial state <= 4'b0001;
-   
    // state register
    always_ff @(posedge clk)
-      state <= nextState;
+      if (reset) state <= Sinit;
+      else        state <= nextState;
 
    // next-state logic
-   always_comb begin
-      nextState = 4'b0;
-      unique case (1'b1)
-         state[Sinit]:  nextState[a ? Sinit : S0] = 1'b1;
-         state[S0]:     nextState[a ? S01 : S0] = 1'b1;
-         state[S01]:   nextState[a ? S011  : S0] = 1'b1;
-         state[S011]: nextState[a ? Sinit   : S0] = 1'b1;
-         default: nextState[Sinit] = 1'b1;    // shouldn't happen
+   always_comb 
+      case (state)
+         Sinit:  nextState = a ? Sinit   : S0;
+         S0:     nextState = a ? S01    : S0;
+         S01:   nextState = a ? S011  : S0;
+         S011: nextState = a ? Sinit   : S0;
+         default: nextState = Sinit;    // shouldn't happen
       endcase
-   end
 
    // output logic
-   assign y = state[S011];
+   assign y = (state == S011);
 endmodule
 
 
 // For synthesis, we'll use this top module so we can debounce the
 // pushbutton input to use as the clock for our FSM.
 module top(input logic clk100MHz,      // system clock
-            input logic myReset,   // reset signal from a switch
+            input logic reset,   // reset signal from a switch
             input logic pushbutton, // pushbutton used as FSM clk
             input logic a,       // FSM input from a switch
-            output logic [3:0] state,
+            output logic [1:0] state,
             output logic resetOut,
             output logic y       // FSM output to an LED
             );
@@ -53,12 +50,12 @@ module top(input logic clk100MHz,      // system clock
 
    // debounce the pushbutton
    logic fsm_clk;
-   debounce db1(.clk(buffered_clk), .reset(myReset), .in(pushbutton), .out(fsm_clk));
+   debounce db1(.clk(buffered_clk), .reset, .in(pushbutton), .out(fsm_clk));
 
    // instantiate our FSM
-   fsm_011 u0(.clk(fsm_clk), .reset(myReset), .a, .state, .y);
+   fsm_011 u0(.clk(fsm_clk), .reset, .a, .state, .y);
 
-   assign resetOut = myReset;
+   assign resetOut = reset;
 endmodule
 
 

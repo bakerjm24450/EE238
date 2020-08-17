@@ -1,13 +1,12 @@
 set_io y U16
 set_io a V17
 
-set_io myReset V16
+set_io reset V16
 set_io pushbutton U18
 
 set_io clk100MHz W5
 
 set_io state[0] P3
 set_io state[1] N3
-set_io state[2] P1
-set_io state[3] L1
+
 set_io resetOut V14
