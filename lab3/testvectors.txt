@@ -1,6 +1,6 @@
 // Test vectors for adventure game
 // Format:
-// reset_NorthSouthEastWest_vwd
+// reset_NorthSouthEastWest_VorpalWinDead
 1_0000_000		// reset 	(Cave)
 0_0010_000		// east 	(Tunnel)
 0_0001_000		// west		(Cave)
