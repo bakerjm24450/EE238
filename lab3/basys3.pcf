@@ -1,0 +1,21 @@
+set_io segs[6] W7
+set_io segs[5] W6
+set_io segs[4] U8
+set_io segs[3] V8
+set_io segs[2] U5
+set_io segs[1] V5
+set_io segs[0] U7
+
+set_io reset U18
+set_io north T18
+set_io south U17
+set_io east T17
+set_io west W19
+
+set_io win U16
+set_io dead E19
+set_io v U19
+
+set_io clk W5
+
+

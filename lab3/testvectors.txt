@@ -1,0 +1,20 @@
+// Test vectors for adventure game
+// Format:
+// reset_NorthSouthEastWest_vwd
+1_0000_000		// reset 	(Cave)
+0_0010_000		// east 	(Tunnel)
+0_0001_000		// west		(Cave)
+0_0010_000		// east		(Tunnel)
+0_0100_000		// south 	(River)
+0_1000_000		// north	(Tunnel)
+0_0100_000		// south	(River)
+0_0001_000		// west		(Sword Stash)
+0_0100_100		// south	(River)
+0_0010_100		// east		(Den)
+0_0000_110		// 			(Victory Vault)
+
+1_0000_000		// reset	(Cave)
+0_0010_000		// east		(Tunnel)
+0_0100_000		// south	(River)
+0_0010_000		// east		(Den)
+0_0000_001		// 			(Graveyard)
