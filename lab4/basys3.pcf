@@ -1,0 +1,18 @@
+set_io clk W5
+set_io reset U18
+
+// turn signals
+set_io right T17
+set_io left W19
+
+// left signal lights
+set_io la N3
+set_io lb P1
+set_io lc L1
+
+// right signal lights
+set_io ra U19
+set_io rb E19
+set_io rc U16
+
+
