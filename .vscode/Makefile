@@ -4,21 +4,22 @@ current_dir = $(CURDIR)
 
 # Default names for input and output files
 VERILOG:=${current_dir}/design.sv
-TOP:=basys3
+TOP:=top
+BOARD:=basys3
 
 # include a local makefile to override default names
 -include ${current_dir}/Makefile
 
 # default name for pcf file (pin connections)
 ifndef PCF
-PCF:=${current_dir}/${TOP}.pcf
+PCF:=${current_dir}/${BOARD}.pcf
 endif
 
 # default name for sdc file (clock info)
 ifndef SDC
 # does an sdc file exist? Only define SDC if so
-ifneq ("$(wildcard ${TOP}.sdc)", "") 
-SDC:=${TOP}.sdc
+ifneq ("$(wildcard ${BOARD}.sdc)", "") 
+SDC:=${BOARD}.sdc
 endif
 endif
 
@@ -41,20 +42,20 @@ ${BUILDDIR}:
 	mkdir ${BUILDDIR}
 
 ${BUILDDIR}/${TOP}.eblif: | ${BUILDDIR} ${VERILOG}
-	cd ${BUILDDIR} && synth -t ${TOP} -v ${VERILOG} -d ${BITSTREAM_DEVICE} -p ${PARTNAME}
+	cd ${BUILDDIR} && symbiflow_synth -t ${TOP} -v ${VERILOG} -d ${BITSTREAM_DEVICE} -p ${PARTNAME}
 
 ${BUILDDIR}/${TOP}.net: ${BUILDDIR}/${TOP}.eblif ${SDC}
-	cd ${BUILDDIR} && pack -e ${TOP}.eblif -d ${DEVICE} ${SDC_OPTS}
+	cd ${BUILDDIR} && symbiflow_pack -e ${TOP}.eblif -d ${DEVICE} ${SDC_OPTS}
 
 ${BUILDDIR}/${TOP}.route: ${BUILDDIR}/${TOP}.net ${PCF} ${SDC}
-	cd ${BUILDDIR} && place_n_route -e ${TOP}.eblif -d ${DEVICE} -p ${PCF} -n ${TOP}.net -P ${PARTNAME} ${SDC_OPTS}
+	cd ${BUILDDIR} && symbiflow_place_n_route -e ${TOP}.eblif -d ${DEVICE} -p ${PCF} -n ${TOP}.net -P ${PARTNAME} ${SDC_OPTS}
 
 ${BUILDDIR}/${TOP}.fasm: ${BUILDDIR}/${TOP}.route
-	cd ${BUILDDIR} && write_fasm -e ${TOP}.eblif -d ${DEVICE}
+	cd ${BUILDDIR} && symbiflow_write_fasm -e ${TOP}.eblif -d ${DEVICE}
 	cd ${BUILDDIR} && mv -n *.fasm ${TOP}.fasm
 
 ${BUILDDIR}/${TOP}.bit: ${BUILDDIR}/${TOP}.fasm
-	cd ${BUILDDIR} && write_bitstream -d ${BITSTREAM_DEVICE} -f ${TOP}.fasm -p ${PARTNAME} -b ${TOP}.bit
+	cd ${BUILDDIR} && symbiflow_write_bitstream -d ${BITSTREAM_DEVICE} -f ${TOP}.fasm -p ${PARTNAME} -b ${TOP}.bit
 
 ${TOP}.bit: ${BUILDDIR}/${TOP}.bit
 	cp ${BUILDDIR}/${TOP}.bit ${TOP}.bit

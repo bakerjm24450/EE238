@@ -22,8 +22,8 @@ fi
 OUT_NOISY_WARNINGS=noisy_warnings-${DEVICE}_place.log
 
 echo "Generating constraints ..."
-generate_constraints $PCF $EBLIF $NET $PART $DEVICE $ARCH_DEF
+symbiflow_generate_constraints $EBLIF $NET $PART $DEVICE $ARCH_DEF $PCF
 
-run_vpr --fix_pins constraints.place --place --route
+run_vpr --fix_clusters constraints.place --place --route
 
 mv vpr_stdout.log place_n_route.log
