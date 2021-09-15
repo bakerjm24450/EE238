@@ -1,1 +1,1 @@
-TOP:=minority
+TOP:=majority
