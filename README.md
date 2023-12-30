@@ -1,5 +1,5 @@
-# EE228
-This directory contains the tools used for EE 228 Digital Systems Design at VMI. It includes the following:
+# EE238
+This directory contains the tools used for EE 238 Digital Systems Design at VMI. It includes the following:
 * VS Code workspace
 * VS Code devcontainer that builds a Docker container
   * Container is based on an Ubuntu image with miniconda installed
